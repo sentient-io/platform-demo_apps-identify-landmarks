@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <link rel="icon" type="image/svg" href="img/Sentient-io_fav.svg" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous" />
+
+        <link rel="stylesheet" type="text/css" href="css/demoapps.css" />
+
+        <!-- Import Google Material Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <!-- Import Fontawsome -->
+        <script src="https://kit.fontawesome.com/0596f25b73.js" crossorigin="anonymous"></script>
+
+        <title>Identify Landmarks</title>
+    </head>
+
+    <body>
+        <!-- +----------------+ -->
+        <!-- | Main Container | -->
+        <!-- +----------------+ -->
+
+        <!-- +--------------------+ -->
+        <!-- | Full Screen Loader | -->
+        <!-- +--------------------+ -->
+        <!-- Place Loader right after body tag, above eveything else -->
+        <script src="js/loader.js"></script>
+        <div id="loader" style="display: none">
+            <div class="align-items-center d-flex flex-column justify-content-center s-full-screen-loader">
+                <img src="img/sentie-loader.gif" width="180px" height="auto" alt="" />
+                <p>Processing ...</p>
+                <p id="loader-text" class="mx-5" style="max-width: 500px; text-align: center"></p>
+            </div>
+        </div>
+        <!-- -END- Full Screen Loader -->
+
+        <div class="pb-5 s-bg-wave" style="min-height: calc(100vh - 100px)">
+            <div class="m-auto p-md-5 p-3" style="max-width: 1200px">
+                <!-- +--------------------+ -->
+                <!-- | Alert Popup Window | -->
+                <!-- +--------------------+ -->
+                <div class="modal fade" id="alert" tabindex="-1" area-hidden="true">
+                    <div class="modal-dialog d-flex" style="height: 100vh">
+                        <div class="modal-content m-auto p-2">
+                            <div class="modal-header d-flex justify-content-center">
+                                <h5 class="modal-title" id="alertTitle"></h5>
+                            </div>
+                            <div class="modal-body p-3">
+                                <p id="alertContent"></p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    onclick="handleRestart()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -END- Alert Popup Window -->
+
+                <!-- +------------------+ -->
+                <!-- | Demo Apps Header | -->
+                <!-- +------------------+ -->
+                <div id="header-contianer" class="d-flex flex-column flex-md-row justify-content-md-between">
+                    <div id="header-container-l" class="d-flex flex-column col-md-8">
+                        <div class="d-flex flex-row">
+                            <h4>Detect Landmarks in Singapore and Japan</h4>
+                            <span class="ml-2 p-2 badge badge-pill"
+                                style="background-color: #b71c1c; color: white; height: 28px"><i>DEMO</i></span>
+                        </div>
+                        <div>
+                            <p>This demo app takes in an image and allows the user to choose between identifying landmarks in Singapore or Japan. 
+</p>
+                        </div>
+                    </div>
+                    <div id="header-container-r"
+                        class="d-flex flex-row flex-md-column col-md-3 justify-content-center demo-app-btn-container">
+                        <a href="https://platform.sentient.io/demoapps_detail/identify_landmarks" target="_blank" class="mb-3 mx-auto d-block text-center s-btn-secondary"
+                            style="width: 200px; background: #f5f5f5">
+                            More Info
+                        </a>
+                        <a href="https://github.com/sentient-io/platform-demo_apps-identify-landmarks.git" target="_blank" class="mb-3 mx-auto text-center s-btn-primary s-btn-grey"
+                            style="width: 200px">
+                            Demo App Code
+                        </a>
+                    </div>
+                </div>
+                <!-- -END- Header Content, title and description -->
+
+                <!-- Demp App Container -->
+                <div class="p-3 mt-3 d-flex flex-column" style="min-height: 30vh">
+                    <!-- Add class "col-lg-6" to below div for result display -->
+                    <div id="functionsContianer" class="col-12">
+                        <!-- +------------------------------+ -->
+                        <!-- | Demo APP Functions Goes Here | -->
+                        <!-- +------------------------------+ -->
+
+                        <!-- +--------------+ -->
+                        <!-- | Inline Radio | -->
+                        <!-- +--------------+ -->
+                        <div id="countrySelector">
+                            <div class="d-flex flex-column justify-content-center text-center">
+                                <p>Please select country for landmark.</p>
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="s-radio" id="location-sg" onclick="sRadioSelection(this)">
+                                        <div class="s-radio-base">
+                                            <div class="s-radio-selected"></div>
+                                        </div>
+                                        <p class="s-radio-text">Singapore</p>
+                                    </div>
+
+                                    <div class="ml-4 s-radio" id="location-jp" onclick="sRadioSelection(this)">
+                                        <div class="s-radio-base"></div>
+                                        <p class="s-radio-text">Japan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -END- Inline Radio -->
+
+                        <!-- Sample images container  -->
+                        <div id="sample-images-container">
+                            <p class="mb-0 mt-3 text-center">To test, either select from <b
+                                    class="s-text-sentient-green">images provided below </b>or upload
+                                your own image
+                                <b class="s-text-sentient-beige">with the uploader</b>.
+                            </p>
+                            <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center">
+                                <div id="sample-images" class="d-flex flex-wrap  justify-content-center ">
+                                    <!-- Sample images will be rendered by renderSampleImages() function inside sampleImages.js -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- +----------------+ -->
+                        <!-- | Image Uploader | -->
+                        <!-- +----------------+ -->
+                        <!-- Pic Preview -->
+                        <div class="d-flex justify-content-center mt-3 mb-3 s-img-preview" id="imgPreview"></div>
+                        <!-- -END- Pic Preview -->
+
+                        <!-- Uploader drag drop box -->
+                        <div class="mx-auto mt-4 p-3 s-img-uploader" id="imgUploader">
+                            <form class="text-center">
+                                <i class="mb-3 material-icons">cloud_upload</i>
+                                <h5>Drag and drop single image here</h5>
+                                <p>(Max file size : 5mb)</p>
+                                <p>or</p>
+                                <input accept="image/*" id="imgUploaderInput" onchange="uploadImage(this.files)"
+                                    type="file" />
+                                <label class="px-3 s-btn-primary s-btn-green" for="imgUploaderInput">Upload a
+                                    Picture</label>
+                            </form>
+                        </div>
+
+                        <!-- Error message -->
+                        <div id="imageErrMsg" style="display: none;">
+                            <div class="mt-3 d-flex justify-content-center text-danger">
+                                <i class="mr-3 material-icons">error_outline</i>
+                                <p></p>
+                            </div>
+                        </div>
+
+                        <!-- -END- Image Uploader -->
+                    </div>
+
+                    <div id="resultContainer" class="mt-4" style="display: none;">
+                        <div class="pt-4 pb-2 d-flex justify-content-center col-12 text-center">
+                            <!-- +-----------------------------+ -->
+                            <!-- |  Demo APP Results Goes Here | -->
+                            <!-- +-----------------------------+ -->
+                        </div>
+                    </div>
+                </div>
+                <!-- +--------------------+ -->
+                <!-- |  Demo APP Controls | -->
+                <!-- +--------------------+ -->
+                <div class="m-auto d-flex flex-column-reverse flex-sm-row justify-content-center align-items-center"
+                    style="max-width: 600px">
+                    <div class="col-3 text-center">
+                        <button id="btn-cancel" class="mb-4 s-btn-cancel" style="display: none"
+                            onclick="handleCancel()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button id="mainFunction" class="mb-4 mx-auto text-center s-btn-primary s-btn-green"
+                            style="display: none" onclick="handleMainFunction()">
+                            Detect Landmark
+                        </button>
+                        <button id="btn-restart" class="mb-4 mx-auto text-center s-btn-primary s-btn-green"
+                            style="display: none !important" onclick="handleRestart()">
+                            Restart
+                        </button>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <!-- -END- Demo App Controls -->
+                <!-- -END- Demp App Container  -->
+            </div>
+            <!-- Back button to all demo app -->
+            <div class="mt-3 d-flex justify-content-center">
+                <a href="https://platform.sentient.io/demoapps">
+                    <button class="d-flex row align-items-center s-btn-cancel">
+                        <span class="material-icons mr-2">arrow_back</span>
+                        All Demo Apps
+                    </button>
+                </a>
+            </div>
+        </div>
+        <!-- -END- Main Container -->
+
+        <!-- +--------+ -->
+        <!-- | Footer | -->
+        <!-- +--------+ -->
+        <footer class="shadow-lg" style="background-color: white">
+            <div class="mx-auto pt-5 pb-3 d-flex flex-column justify-content-center flex-lg-row"
+                style="max-width: 1000px">
+                <div class="col-12 col-lg-8">
+                    <div class="text-center text-lg-left">
+                        <p>
+                            Designed and built by
+                            <a href="https://www.sentient.io/" target="_blank" style="color: #bb9968">Sentient.io</a>
+                            with the help of our contributors.
+                        </p>
+                        <p>
+                            App version: 1.0.0 | Source code for app available
+                            <a href="https://github.com/sentient-io/platform-demo_apps-identify-landmarks.git" target="_blank"
+                                style="color: #bb9968">here</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <a href="https://www.sentient.io/" target="_blank">
+                        <img src="img/sentient-logo.png" alt="Sentient.io logo" class="m-auto d-block"
+                            style="max-width: 280px" />
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- -End- footer -->
+
+        <!-- jQuery(Google) first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+        <script src="js/imageUploader.js"></script>
+        <script src="js/landMarkDetection.js"></script>
+
+        <!-- Stores API Key -->
+        <script src="app.js"></script>
+        <script src="js/main.js"></script>
+
+        <script src="js/sampleImages.js"></script>
+
+    </body>
+
+</html>

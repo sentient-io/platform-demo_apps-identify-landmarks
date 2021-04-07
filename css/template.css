@@ -1,0 +1,136 @@
+/* +-------------------------------------+ */
+/* | Import Nunito Sans font from google | */
+/* +-------------------------------------+ */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+	font-family: 'Nunito Sans', sans-serif;
+	transition: all 0.3s;
+}
+
+html {
+	font-size: 16px;
+}
+
+i,
+button {
+	font-weight: 400;
+}
+
+button:focus {
+	outline: none !important;
+}
+
+h2 {
+	font-weight: 800;
+}
+
+h5 {
+	font-weight: 700;
+}
+
+a,
+a:hover {
+    color: #424242;
+	text-decoration: none;
+}
+
+/* Background */
+.s-bg-wave {
+	background: #f5f5f5 url('../img/bg-waveline.png') no-repeat center bottom;
+	background-size: 100%;
+}
+
+/* +---------+ */
+/* | Buttons | */
+/* +---------+ */
+.s-btn-green {
+	border: 1px solid #8eaf04;
+	background-color: #8eaf04;
+}
+
+.s-btn-grey {
+	border: 1px solid #424242;
+	background-color: #424242;
+}
+
+.sentie-btn-grey:hover {
+	filter: brightness(1.4) !important;
+}
+
+.s-btn-primary {
+	min-width: 160px;
+    padding: 0.5rem;
+    border-radius: 8px;
+	color: white !important;
+	font-weight: 300 !important;
+}
+
+.s-btn-primary:hover {
+	filter: brightness(1.1);
+}
+
+.s-btn-secondary {
+    min-width: 160px;
+    padding: 0.5rem;
+    border: 1px solid #424242;
+    border-radius: 8px;
+}
+
+.s-btn-secondary:hover {
+	filter: brightness(0.9);
+}
+
+.s-btn-cancel {
+    border: none;
+    color: #9e9e9e;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.s-btn-cancel:hover {
+	color: #424242;
+}
+
+/* Override material icons reansition delay */
+.material-icons {
+	transition: all 0s;
+}
+
+@media (max-width: 490px) {
+	/* Stack More Info button and Demo App Code button vertically */
+	.demo-app-btn-container {
+		flex-direction: column !important;
+	}
+}
+
+/* +--------------+ */
+/* |  Scroll Bar  | */
+/* +--------------+ */
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+/* +-----------+ */
+/* |  Corners  | */
+/* +-----------+ */
+.s-rounded-bottom-lg {
+	border-radius: 0 0 0.3rem 0.3rem !important;
+}
+.s-rounded-top-lg {
+	border-radius: 0.3rem 0.3rem 0 0 !important;
+}
+
